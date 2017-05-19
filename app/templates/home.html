@@ -1,5 +1,10 @@
 <h1>Bloc Chat</h1>
+
+<div class="rooms-btn">
+    <button type="button" name="AddRoom" class="btn btn-success center-block" id="addRoom"ng-click="home.openRoom()">New Chat</button>
+</div>
+
 <div class="rooms" ng-repeat="room in home.rooms">
-    <h3>{{ room.$id }}</h3>
-    <p>{{ room.$value }}</p>
+    <!--<p>{{ room.name }}</p>-->
+    <a class=room-selector>{{ room.name }}</a>
 </div>
