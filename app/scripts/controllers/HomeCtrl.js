@@ -2,26 +2,33 @@
     function HomeCtrl(Room, $uibModal) {
         this.rooms = Room.all;
 
- 
+        this.selectRoom = function (roomId) {
+                    this.currentRoom = roomId;
+                    this.messages = Room.getMessages(this.currentRoom.$id);
+        
+                }
      this.openRoom = function() {
+
              var modalWindow = $uibModal.open({
-                 templateUrl: '/templates/modal.html',
+                 templateUrl: '/templates/newRoomModal.html',
                  controller: function ($scope, $uibModalInstance) {
-                     $scope.roomName = {name: ''};
+                     $scope.newRoom = null;
                      $scope.cancelAction = function() {
                          $uibModalInstance.dismiss('cancel');
                      };
                      
-                     $scope.createRoom = function() {
-                         $uibModalInstance.close($scope.addRoom)
+                     $scope.createRoom = function(room) {
+                         console.log("createRoom");
+                         Room.addRoom(room);
+                         $uibModalInstance.close();
                      };
                  },
                  size: 'sm'
              });
              
-             modalWindow.result.then(function(data){
-                 Room.addRoom(data);
-             });
+            //  modalWindow.result.then(function(data){
+            //      Room.addRoom(data);
+            //  });
          }
     }     
 

@@ -1,10 +1,39 @@
-<h1>Bloc Chat</h1>
+<div id="wrapper">
+    <aside id="sidebar-wrapper">
+            <h1>Bloc Chat</h1>    
+        
+            <button id="create-button" type="button" class="btn btn-default" ng-click="home.openRoom()">Create Room</button>
 
-<div class="rooms-btn">
-    <button type="button" name="AddRoom" class="btn btn-success center-block" id="addRoom"ng-click="home.openRoom()">New Chat</button>
+            <div class="list-group" id="room-list">
+                <button type="button" class="list-group-item" ng-class="{active : isActive(room)}" ng-repeat="room in allRooms" ng-click="setRoom(room)">{{room.name}}</button>
+            </div>
+    </aside>
+    <div id="page-content-wrapper">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header text-center">
+                        <h2>{{roomName}}</h2>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="message in messages">
+                            <h5 class="list-group-item-heading"><b>{{message.username}}</b><small class="pull-right">{{message.sentAt | date:'hh:mm a MMM d'}}</small></h5>
+                            <p class="list-group-item-text">{{message.content}}</p>
+                        </li> 
+                    </ul>
+                </div>
+            </div>
+            <div class="row" ng-hide="roomName === 'Please Select a Room'">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" ng-model="newMessage" placeholder="Enter new message...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-disabled="newMessage === ''" ng-click="sendMessage()">Submit</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="rooms" ng-repeat="room in home.rooms">
-    <!--<p>{{ room.name }}</p>-->
-    <a class=room-selector>{{ room.name }}</a>
-</div>
